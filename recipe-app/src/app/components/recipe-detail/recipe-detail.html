@@ -1,0 +1,103 @@
+<div class="recipe-detail-container" *ngIf="recipe">
+  <header class="header">
+    <button class="back-btn" (click)="goBack()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      חזרה
+    </button>
+  </header>
+
+  <div class="recipe-content">
+    <div class="recipe-header">
+      <h1>{{ recipe.title }}</h1>
+      <div class="recipe-meta">
+        <span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          הכנה: {{ recipe.prepTime }} דקות
+        </span>
+        <span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          בישול: {{ recipe.cookTime }} דקות
+        </span>
+        <span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          {{ recipe.servings }} מנות
+        </span>
+      </div>
+    </div>
+
+    <div class="recipe-sections">
+      <section class="ingredients-section">
+        <h2>חומרים</h2>
+        <div class="ingredients-grid">
+          <div class="ingredient-item" *ngFor="let ingredient of recipe.ingredients">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>{{ ingredient }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="instructions-section">
+        <div class="section-header">
+          <h2>הוראות הכנה</h2>
+          <div class="voice-controls">
+            <button class="control-btn play-btn" (click)="playRecipe()" *ngIf="!isPlaying && !isPaused">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              השמע
+            </button>
+            <button class="control-btn pause-btn" (click)="pauseRecipe()" *ngIf="isPlaying">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+              השהה
+            </button>
+            <button class="control-btn resume-btn" (click)="resumeRecipe()" *ngIf="isPaused">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              המשך
+            </button>
+            <button class="control-btn stop-btn" (click)="stopRecipe()" *ngIf="isPlaying || isPaused">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="6" width="12" height="12"></rect>
+              </svg>
+              עצור
+            </button>
+          </div>
+        </div>
+        <ol class="instructions-list">
+          <li *ngFor="let instruction of recipe.instructions; let i = index" 
+              [class.active-step]="currentStepIndex === i"
+              [class.completed-step]="currentStepIndex > i">
+            <span class="step-number">{{ i + 1 }}</span>
+            <span class="step-text">{{ instruction }}</span>
+            <div class="step-indicator" *ngIf="currentStepIndex === i">
+              <div class="pulse-ring"></div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="login-container">
+  <div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="login-card">
+    <div class="login-header">
+      <h1>טעמי הבית</h1>
+      <p>התחבר כדי להתחיל</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="input-group">
+        <label for="username">שם משתמש</label>
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="username"
+          name="username"
+          required
+          autocomplete="username"
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="password">סיסמה</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          autocomplete="current-password"
+        />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="sign-in-btn">
+        <span>התחבר</span>
+      </button>
+    </form>
+
+    <div class="demo-info">
+      <p>משתמש לדוגמה: admin / 123456</p>
+    </div>
+  </div>
+</div>
